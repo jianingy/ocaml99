@@ -14,14 +14,22 @@ type 'a node =
   | One of 'a
   | Many of 'a node list;;
 
+let flatten list =
+  let rec aux acc = function
+    | [] -> acc
+    | One x :: t -> aux (x :: acc) t
+    | Many l :: t -> aux (aux acc l) t in
+  List.rev (aux [] list);;
 
-let flatten =
+(*
+let flatten list =
   let rec aux c = function
     | [] -> c
-    | [One (x)] -> x :: c
-    | [Many (x)] -> (aux x) :: c
-    | [One (x)] :: t -> (aux t) :: x :: c
-    | [Many (x)] :: t -> (aux t) :: (aux x) :: c
-  aux (Many []) ;;
+    | [One x] -> x :: c
+    | [Many x] -> (aux c x) @ c
+    | (One x) :: t -> (aux c t) @ (x :: c)
+    | (Many x) :: t -> (aux c t) @ (aux c x) @ c in
+  List.rev (aux [] list) ;;
+*)
 
-flatten [ One `a ; Many [ One `b ; Many [ One `c ; One `d ] ; One `e ] ] ;;
+flatten [ One `a ; Many [ One `b ; Many [ One `c ; One `d ] ; One `e ] ] = [ `a ; `b ; `c ; `d ; `e ];;

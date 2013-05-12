@@ -8,5 +8,8 @@
   Find out whether a list is a palindrome.
 *)
 
+let is_palindrome c =
+  c = List.rev c ;;
+
 is_palindrome [ `x ; `a ; `m ; `a ; `x ];;
 not (is_palindrome [ `a ; `b ]);;

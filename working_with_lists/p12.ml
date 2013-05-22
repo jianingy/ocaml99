@@ -4,6 +4,8 @@
  * author     : Jianing Yang <jianingy.yang AT gmail DOT com>
  *)
 
+(* Given a run-length code list generated as specified in the previous
+   problem, construct its uncompressed version. *)
 
 type 'a rle =
   | One of 'a
